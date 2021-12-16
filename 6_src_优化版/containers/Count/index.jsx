@@ -1,8 +1,11 @@
+//connect用于连接UI组件和redux
+import { connect } from 'react-redux'
+import { createIncrementAction } from '../../redux/count_action'
 import React, { Component } from 'react'
 
-export default class Count extends Component {
+class CountUI extends Component {
     add = () => {
-        const {value} = this.selRef
+        const { value } = this.selRef
         this.props.jia(value)
     }
     ayncAdd = () => {
@@ -24,3 +27,14 @@ export default class Count extends Component {
         )
     }
 }
+
+
+
+
+//暴露一个容器组件 connect()()第一个括号定义两个函数a b a为获取状态的函数 b为设置状态的函数 ；第二个括号为UI组件 
+export default connect(
+    state => ({ count: state }),
+
+    //通知redux执行加法
+    ({ jia: createIncrementAction })
+)(CountUI)
